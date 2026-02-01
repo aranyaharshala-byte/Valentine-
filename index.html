@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Proposal 💖</title>
 
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #b30059;
+  }
+
+  button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    margin: 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+
+  #yes {
+    background-color: #ff3366;
+    color: white;
+  }
+
+  #no {
+    background-color: #444;
+    color: white;
+    position: absolute;
+  }
+
+  /* Celebration Screen */
+  .celebration {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+
+  .celebration img {
+    width: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+
+  /* Fireworks */
+  .firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: gold;
+    border-radius: 50%;
+    animation: explode 1s linear infinite;
+  }
+
+  @keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  /* Heart Rain */
+  .heart {
+    position: fixed;
+    top: -10px;
+    color: pink;
+    font-size: 20px;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+
+  /* WhatsApp Button */
+  .whatsapp {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #25D366;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Abhishek ❤️<br>Will you be my Valentine?</h1>
+  <button id="yes">YES</button>
+  <button id="no">NO</button>
+</div>
+
+<div class="celebration" id="celebration">
+  <h1>🎆 I knew you would say YES ❤️ 🎆</h1>
+  <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
+  <a class="whatsapp"
+     href="https://wa.me/?text=I%20just%20said%20YES%20to%20the%20sweetest%20Valentine%20proposal%20ever%20❤️💍"
+     target="_blank">
+     Share on WhatsApp 💚
+  </a>
+</div>
+
+<!-- Soft Romantic Music -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+</audio>
+
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const celebration = document.getElementById("celebration");
+  const music = document.getElementById("music");
+
+  const noTexts = ["Wrong answer 😜", "Are you sure? 😏", "No escape 😈"];
+  let index = 0;
+
+  function moveNoButton() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.innerText = noTexts[index % noTexts.length];
+    index++;
+  }
+
+  // NO is impossible to click
+  noBtn.addEventListener("mouseover", moveNoButton);
+  noBtn.addEventListener("touchstart", moveNoButton);
+
+  yesBtn.addEventListener("click", () => {
+    celebration.style.display = "flex";
+    music.play();
+
+    // Fireworks
+    for (let i = 0; i < 50; i++) {
+      const fw = document.createElement("div");
+      fw.className = "firework";
+      fw.style.left = Math.random() * window.innerWidth + "px";
+      fw.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 1000);
+    }
+
+    // Heart Rain
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  });
+</script>
+
+</body>
+  </html>
